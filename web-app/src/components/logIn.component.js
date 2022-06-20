@@ -37,11 +37,57 @@ export default class LogIn extends Component {
             files: this.state.files
         }
 
-        console.log(newUser);
-
         axios.post('http://localhost:3000/user/add', newUser)
-            .then(res => console.log(res.data))
-            .catch(error => console.log(error));
+                .then(res => console.log(res.data))
+                .catch(error => console.log(error));
+
+                console.log("You are loged in as "  + this.state.username);
+
+                console.log(newUser);
+
+        /*
+                axios.get('http://localhost:3000/user/')
+        .then(response => {
+            if (response.data.lenght = 0) {
+                axios.post('http://localhost:3000/user/add', newUser)
+                .then(res => console.log(res.data))
+                .catch(error => console.log(error));
+
+                console.log("You are loged in as "  + this.state.username);
+
+                console.log(newUser);
+            }
+            if (response.data.lenght > 0) {
+                var n = response.data.lenght;
+                var i = 0;
+                while (i < n) {
+                    if (response.data.username[i] = this.state.username) {
+                        if (response.data.username[i] = this.state.password) {
+                            console.log("You are loged in as "  + this.state.username);
+                            break 
+                        }
+                        else {
+                            console.log("This Username is already taken, please use another one");
+                            break
+                        }   
+                    } 
+                    else {
+                        i++;
+                    }
+                }
+                axios.post('http://localhost:3000/user/add', newUser)
+                .then(res => console.log(res.data))
+                .catch(error => console.log(error));
+
+                console.log("You are loged in as "  + this.state.username);
+
+                console.log(newUser);
+                
+            }
+        })
+        */
+
+
     }
 
     render() {

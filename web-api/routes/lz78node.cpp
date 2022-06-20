@@ -33,7 +33,10 @@ public:
     LinkedList* getDictionary() { return dictionary; }
     LinkedList* getTuplas() { return tuplas; }
     
-
+    /**
+     * @brief Comprime un archivo por medio del algoritmo de lz78
+     * 
+     */
     void compress()
     {
         dictionary->addData("", 0);
@@ -72,6 +75,11 @@ public:
 
     }
 
+    /**
+     * @brief escribe un archivo txt con las tuplas creadas
+     * 
+     * @param filename 
+     */
     void tuplastxt(string filename){
         fstream file;
         file.open(filename,std::ios_base::out);
@@ -85,6 +93,11 @@ public:
         file.close();
     }
 
+    /**
+     * @brief escribe un archivo de texto con el diccionario creado
+     * 
+     * @param filename 
+     */
     void dictionarytxt(string filename){
         fstream file;
         file.open(filename,std::ios_base::out);
@@ -97,6 +110,10 @@ public:
         file.close();
     }
 
+    /**
+     * @brief A partir de las tuplas y del diccionario descomprime el archivo
+     * 
+     */
     void decompress(){
         string decompressed;
         for (int i = 0; i < tuplas->getSize(); i++)
@@ -106,6 +123,10 @@ public:
         cout <<endl<<endl<<"EL ARCHIVO DESCOMPRIMIDO ES: "<< decompressed <<endl;
     }
 
+    /**
+     * @brief vuelve a crear un archivo gif igual al que fue comprimido
+     * 
+     */
   void createGIF(){
         ofstream file;
 
@@ -133,6 +154,11 @@ public:
         }      
         
     }
+    /**
+     * @brief lectura de un archivo 
+     * 
+     * @param filename 
+     */
 
     void readFile(string filename)
     {
@@ -161,6 +187,16 @@ public:
         cout<<endl;
     }
 
+    /**
+     * @brief descomprime el archivo comprimido a partir de las tuplas y el diccionario
+     * 
+     * @param path 
+     * @param nodes 
+     * @param nodesL 
+     * @param tupla 
+     * @param tuplaL 
+     */
+
     void Decompress(string path, nodes2* nodes, int nodesL, TuplaSimple *tupla, int tuplaL) {
         ofstream file;
 
@@ -185,7 +221,10 @@ public:
         }
     };
 };
-
+/**
+ * @brief Adapta el código para poder utilizar las funciones en el javascript
+ * 
+ */
 namespace lz78Node {
     using v8::FunctionCallbackInfo;
     using v8::Isolate;
@@ -198,6 +237,14 @@ namespace lz78Node {
     using v8::Array;
     using v8::Integer;
 
+    /**
+     * @brief Create a Object Of Data object (json)
+     * 
+     * @param compress Algoritmo de compresión lz78
+     * @param isolate 
+     * @param context 
+     * @return Local<Object> 
+     */
     Local<Object> createObjectOfData(lz78Compressor *compress, Isolate *isolate, Local<Context> context) {
         Local<Object> object = Object::New(isolate);
         Local<Object> objectTmp = Object::New(isolate);
@@ -251,7 +298,11 @@ namespace lz78Node {
         return object;
         
     };
-
+    /**
+     * @brief comprime por medio del algoritmo lz78
+     * 
+     * @param args 
+     */
     void doLZ78(const FunctionCallbackInfo<Value>&args) {
         Isolate* isolate = args.GetIsolate();
 
@@ -271,6 +322,11 @@ namespace lz78Node {
         
         delete lz78;
     }
+    /**
+     * @brief descomprime las tuplas por medio del diccionario
+     * 
+     * @param args diccionario, tuplas, directorio donde se desea guardar el archivo descomprimido
+     */
 
     void doDecompress(const FunctionCallbackInfo<Value>&args) {
         Isolate* isolate = args.GetIsolate();

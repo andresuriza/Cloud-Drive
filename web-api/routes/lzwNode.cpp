@@ -32,6 +32,14 @@ public:
     int getCodeI() { return this->codei; }
     size_t getSize() { return this->size; }
 
+    /**
+     * @brief busca en el diccionario los "chars" deseados
+     * 
+     * @param search 
+     * @param chars 
+     * @return true 
+     * @return false 
+     */
     bool searchInDictionary(string search, int chars) {
         bool ret = false;
         for (int i = 0; i < size && !ret; i++) {
@@ -46,6 +54,13 @@ public:
         }
         return ret;
     }
+    /**
+     * @brief obtiene el índice del char en el diccionario
+     * 
+     * @param search 
+     * @param chars 
+     * @return int 
+     */
 
     int indexInDictionary(string search, int chars) {
         int ret = -1;
@@ -61,6 +76,11 @@ public:
         }
         return ret;
     }
+    /**
+     * @brief comprime mediante el algoritmo lzw
+     * 
+     * @param filename 
+     */
 
     void compress(string filename) {
         readFile(filename);
@@ -103,6 +123,10 @@ public:
 
         
     }
+    /**
+     * @brief inicia las variables necesarios para el funcionamiento del lzw
+     * 
+     */
 
     void initCharacters() {
         bool put = true;
@@ -126,6 +150,11 @@ public:
         }
 
     }
+    /**
+     * @brief lectura de un archivo con el fin de luego comprimirlo
+     * 
+     * @param filename 
+     */
 
     void readFile(string filename) {
         std::ifstream file;
@@ -148,6 +177,16 @@ public:
         
         file.close();
     }
+
+    /**
+     * @brief realiza la descompresión del archivo utilizando la descompresión del lzw
+     * 
+     * @param path 
+     * @param nodes 
+     * @param nodesL 
+     * @param codes 
+     * @param codesL 
+     */
 
     void Decompress(string path, nodes* nodes, int nodesL, int* codes, int codesL) {
         ofstream file;
@@ -186,7 +225,14 @@ namespace lzwNode {
     using v8::Integer;
     //using node;
 
-    
+    /**
+     * @brief Create a Object Of Data object (json)
+     * 
+     * @param compress 
+     * @param isolate 
+     * @param context 
+     * @return Local<Object> 
+     */
     Local<Object> createObjectOfData(lzwCompressor* compress, Isolate *isolate, Local<Context> context) {
         Local<Object> object = Object::New(isolate);
         Local<Object> objectTmp = Object::New(isolate);
@@ -228,6 +274,11 @@ namespace lzwNode {
         return object;
         
     };
+    /**
+     * @brief comprime por medio del algoritmo lzw
+     * 
+     * @param args 
+     */
 
     void doLZW(const FunctionCallbackInfo<Value>&args) {
         Isolate* isolate = args.GetIsolate();
@@ -252,6 +303,11 @@ namespace lzwNode {
         delete lzw;
     }
 
+    /**
+     * @brief Descomprime el archivo comprimido a partir de lzw
+     * 
+     * @param args diccionario, código, directorio donde se desea guardar el archivo descomprimido
+     */
     void doDecompress(const FunctionCallbackInfo<Value>&args) {
         Isolate* isolate = args.GetIsolate();
         Local<Context> context = isolate->GetCurrentContext();

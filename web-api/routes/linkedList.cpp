@@ -9,7 +9,7 @@ struct nodes
     string data;
     nodes *next = NULL;
     int index = -1;
-    //tuplas
+
 };
 
 class LinkedList
@@ -19,6 +19,12 @@ private:
     int size = 0;
 
 public:
+/**
+ * @brief Agrega un elemento al final de la lista
+ * 
+ * @param data Data que se desea agregar
+ * @param index indice de posición
+ */
     void addData(string data,int index)
     {
         if (head == NULL)
@@ -49,6 +55,12 @@ public:
         this->size++;
     }
 
+/**
+ * @brief Obtiene los datos almacenados dependiendo del índice que se desea
+ * 
+ * @param index indice al que se desea accesar
+ * @return string 
+ */
     string getData(int index)
     {
         if (index < size)
@@ -80,6 +92,13 @@ public:
             return -1;
     }
 
+    /**
+     * @brief Obtiene el índice de determinada posición de la lista
+     * 
+     * @param index 
+     * @return int 
+     */
+
     int getIndex(int index){
         if (index < size)
         {
@@ -95,6 +114,7 @@ public:
             return -1;
         }
     }
+
 
     int getSize()
     {

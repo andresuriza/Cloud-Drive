@@ -46,13 +46,22 @@ export default class UploadFile extends Component {
             user: this.state.user
         }
 
-        const path = this.state.fileType;
-
+        const path = this.state.fileName;
         console.log(path);
 
-        axios.get('http://localhost:3000/files/compressLZW')
+        if (path === "pdf") {
+            axios.get('http://localhost:3000/files/compressLZW')
             .then(res => console.log(res.data))
             .catch(error => console.log(error));
+        } else if (path === "gif") {
+            axios.get('http://localhost:3000/files/compressLZ78')
+            .then(res => console.log(res.data))
+            .catch(error => console.log(error));
+        }
+
+        
+
+        
     }
 
     render() {
