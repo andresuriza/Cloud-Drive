@@ -1,5 +1,7 @@
 const router = require('express').Router();
 let files = require('../models/files.model');
+const lzw = require("./build/Release/lzwNode");
+
 
 router.route('/').get((req, res) => {
     files.find()
@@ -22,5 +24,31 @@ router.route('/add').post((req, res) => {
     .then(() => res.json('New File Uploaded'))
     .catch(err => res.status(400).json('Error: ' + err));
 });
+
+router.route('/compressLZW').get((req, res) => {
+    files.find();
+
+    
+
+    const json = lzw.lzw("./files/temp.pdf");
+    
+    console.log(json);
+    
+    const dictionary = json.body.Dictionary;
+    const code = json.body.Code;
+    const dictionaryL = json.body.DictionaryL;
+    const codeL = json.body.CodeL;
+
+    const newFile = new files({
+        dictionary,
+        code,
+        dictionaryL,
+        codeL,
+    });
+
+    newFile.save()
+    .then(() => res.json('New File Uploaded'))
+    .catch(err => res.status(400).json('Error: ' + err));
+})
 
 module.exports = router;

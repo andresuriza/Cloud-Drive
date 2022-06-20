@@ -1,6 +1,15 @@
 import React, { Component } from 'react';
 import axios from 'axios';
 
+/*
+import {compressLZW} from "./compression";
+
+function compress(path) {
+    const json = compressLZW(path);
+    return json;
+}
+*/
+
 export default class UploadFile extends Component {
     constructor(props) {
         super(props);
@@ -37,13 +46,13 @@ export default class UploadFile extends Component {
             user: this.state.user
         }
 
-        console.log(newFile);
+        const path = this.state.fileType;
 
-        /*
-        axios.post('http://localhost:3000/user/add', newUser)
+        console.log(path);
+
+        axios.get('http://localhost:3000/files/compressLZW')
             .then(res => console.log(res.data))
             .catch(error => console.log(error));
-        */
     }
 
     render() {
