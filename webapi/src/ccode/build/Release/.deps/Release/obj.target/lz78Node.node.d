@@ -1,1 +1,0 @@
-cmd_Release/obj.target/lz78Node.node := g++ -o Release/obj.target/lz78Node.node -shared -pthread -rdynamic -m64  -Wl,-soname=lz78Node.node -Wl,--start-group Release/obj.target/lz78Node/lz78node.o -Wl,--end-group 
