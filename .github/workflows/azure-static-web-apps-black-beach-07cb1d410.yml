@@ -30,8 +30,8 @@ jobs:
           app_location: "web-app" # App source code path
           api_location: "web-api" # Api source code path - optional
           output_location: "build" # Built app content directory - optional
-          app_build_command: ""
-          api_build_command: "npm install nodemon express cors mongoose"
+          app_build_command: "npm start"
+          api_build_command: "nodemon server.js"
           ###### End of Repository/Build Configurations ######
 
   close_pull_request_job:
